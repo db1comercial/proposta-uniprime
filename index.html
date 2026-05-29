@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposta Técnica-Comercial — Uniprime</title>
+  <style>
+    :root {
+      --db1-blue: #0033A0;
+      --db1-blue-light: #0050D8;
+      --db1-accent: #00C8FF;
+      --db1-dark: #0A0F2C;
+      --db1-gray: #F4F6FB;
+      --db1-gray-mid: #DDE3F0;
+      --db1-text: #1A2340;
+      --db1-muted: #5A6580;
+      --uniprime-green: #007A3D;
+      --uniprime-green-light: #009B4E;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #F0F4FA;
+      color: var(--db1-text);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, var(--db1-dark) 0%, var(--db1-blue) 60%, var(--db1-blue-light) 100%);
+      color: white;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: rgba(0,200,255,0.08);
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 20%;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(0,200,255,0.05);
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 40px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* logo bar replaces old pill logos */
+    .logo-bar {
+      background: white;
+      padding: 0;
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+
+    .logo-bar-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .logo-uniprime-wrap {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-db1-wrap {
+      display: flex;
+      align-items: center;
+      padding-left: 32px;
+      border-left: 1px solid #DDE3F0;
+    }
+
+    .header-tag {
+      display: inline-block;
+      background: rgba(0,200,255,0.18);
+      border: 1px solid rgba(0,200,255,0.4);
+      color: var(--db1-accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+
+    .header h1 {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .header h1 span {
+      color: var(--db1-accent);
+    }
+
+    .header-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.72);
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.45);
+      font-weight: 600;
+    }
+
+    .meta-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--db1-blue);
+      margin-bottom: 6px;
+    }
+
+    .section-heading {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--db1-dark);
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .section-desc {
+      color: var(--db1-muted);
+      font-size: 15px;
+      margin-bottom: 32px;
+      max-width: 620px;
+    }
+
+    /* ── INTRO CARD ── */
+    .intro-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 40px;
+      border-left: 4px solid var(--db1-blue);
+      box-shadow: 0 2px 12px rgba(0,51,160,0.07);
+    }
+
+    .intro-card p {
+      color: var(--db1-muted);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .intro-card p + p {
+      margin-top: 12px;
+    }
+
+    /* ── SCOPE CARDS ── */
+    .scope-grid {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .scope-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      box-shadow: 0 2px 12px rgba(0,51,160,0.06);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+
+    .scope-card:hover {
+      box-shadow: 0 4px 24px rgba(0,51,160,0.12);
+    }
+
+    .scope-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .scope-card.p1::after { background: linear-gradient(90deg, #DC2626, #EF4444); }
+    .scope-card.p2::after { background: linear-gradient(90deg, #D97706, #F59E0B); }
+    .scope-card.p3::after { background: linear-gradient(90deg, #2563EB, #60A5FA); }
+    .scope-card.p4::after { background: linear-gradient(90deg, #059669, #34D399); }
+
+    .scope-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .p1 .scope-number { background: #FEE2E2; color: #DC2626; }
+    .p2 .scope-number { background: #FEF3C7; color: #D97706; }
+    .p3 .scope-number { background: #DBEAFE; color: #2563EB; }
+    .p4 .scope-number { background: #D1FAE5; color: #059669; }
+
+    .scope-content h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--db1-dark);
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+
+    .scope-content .scope-subtitle {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--db1-muted);
+      margin-bottom: 10px;
+    }
+
+    .scope-content p {
+      font-size: 14px;
+      color: var(--db1-muted);
+      line-height: 1.65;
+    }
+
+    .scope-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--db1-gray);
+      color: var(--db1-blue);
+      border: 1px solid var(--db1-gray-mid);
+    }
+
+    .tag.warn { background: #FEF3C7; color: #92400E; border-color: #FDE68A; }
+    .tag.danger { background: #FEE2E2; color: #991B1B; border-color: #FECACA; }
+    .tag.info { background: #DBEAFE; color: #1E40AF; border-color: #BFDBFE; }
+    .tag.green { background: #D1FAE5; color: #065F46; border-color: #A7F3D0; }
+
+    /* ── PRIORITY BADGE ── */
+    .priority-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .p1 .priority-badge { background: #DC2626; color: white; }
+    .p2 .priority-badge { background: #D97706; color: white; }
+    .p3 .priority-badge { background: #2563EB; color: white; }
+    .p4 .priority-badge { background: #059669; color: white; }
+
+    /* ── TEAM SECTION ── */
+    .team-section {
+      margin-bottom: 48px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .team-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(0,51,160,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--db1-blue), var(--db1-accent));
+    }
+
+    .team-role {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--db1-blue);
+      margin-bottom: 6px;
+    }
+
+    .team-name {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--db1-dark);
+      margin-bottom: 4px;
+    }
+
+    .team-period {
+      font-size: 13px;
+      color: var(--db1-muted);
+      margin-bottom: 16px;
+    }
+
+    .team-scope-items {
+      list-style: none;
+    }
+
+    .team-scope-items li {
+      font-size: 13px;
+      color: var(--db1-muted);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--db1-gray);
+      display: flex;
+      gap: 8px;
+    }
+
+    .team-scope-items li:last-child { border-bottom: none; }
+
+    .team-scope-items li::before {
+      content: '→';
+      color: var(--db1-blue);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .team-alloc {
+      margin-top: 14px;
+      padding: 8px 12px;
+      background: var(--db1-gray);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--db1-blue);
+    }
+
+    .alloc-bar-wrap {
+      margin-top: 8px;
+      background: var(--db1-gray-mid);
+      border-radius: 100px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .alloc-bar {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--db1-blue), var(--db1-accent));
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section {
+      margin-bottom: 48px;
+    }
+
+    .timeline-table {
+      width: 100%;
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,51,160,0.06);
+      border-collapse: collapse;
+    }
+
+    .timeline-table thead {
+      background: var(--db1-blue);
+      color: white;
+    }
+
+    .timeline-table thead th {
+      padding: 14px 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: left;
+    }
+
+    .timeline-table tbody tr {
+      border-bottom: 1px solid var(--db1-gray);
+      transition: background 0.15s;
+    }
+
+    .timeline-table tbody tr:last-child { border-bottom: none; }
+    .timeline-table tbody tr:hover { background: var(--db1-gray); }
+
+    .timeline-table tbody td {
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--db1-text);
+      vertical-align: middle;
+    }
+
+    .timeline-table td:first-child {
+      font-weight: 700;
+      color: var(--db1-dark);
+    }
+
+    .gantt-cell {
+      display: flex;
+      gap: 4px;
+    }
+
+    .gantt-block {
+      height: 28px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      padding: 0 8px;
+      white-space: nowrap;
+    }
+
+    .gantt-block.active { background: var(--db1-blue); }
+    .gantt-block.light { background: var(--db1-gray-mid); color: var(--db1-muted); }
+    .gantt-block.accent { background: linear-gradient(90deg, var(--db1-blue), var(--db1-accent)); }
+
+    /* ── ENTREGÁVEIS ── */
+    .deliverables-section {
+      margin-bottom: 48px;
+    }
+
+    .deliverables-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .deliverable-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 2px 8px rgba(0,51,160,0.06);
+      text-align: center;
+    }
+
+    .deliverable-icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .deliverable-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--db1-dark);
+      margin-bottom: 6px;
+    }
+
+    .deliverable-card p {
+      font-size: 12px;
+      color: var(--db1-muted);
+      line-height: 1.5;
+    }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      margin-bottom: 48px;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,51,160,0.10);
+    }
+
+    .pricing-header {
+      background: linear-gradient(135deg, var(--db1-dark), var(--db1-blue));
+      color: white;
+      padding: 28px 32px;
+    }
+
+    .pricing-header h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .pricing-header p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .pricing-body {
+      padding: 28px 32px;
+    }
+
+    .pricing-rows {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .pricing-rows tr {
+      border-bottom: 1px solid var(--db1-gray);
+    }
+
+    .pricing-rows tr:last-child { border-bottom: none; }
+
+    .pricing-rows td {
+      padding: 14px 0;
+      font-size: 14px;
+    }
+
+    .pricing-rows td:first-child { color: var(--db1-muted); width: 55%; }
+    .pricing-rows td:nth-child(2) { color: var(--db1-muted); text-align: center; }
+    .pricing-rows td:last-child { font-weight: 700; color: var(--db1-dark); text-align: right; }
+
+    .pricing-total-row td {
+      padding-top: 18px !important;
+      border-top: 2px solid var(--db1-blue) !important;
+      border-bottom: none !important;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--db1-blue) !important;
+    }
+
+    .pricing-note {
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: var(--db1-gray);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      color: var(--db1-muted);
+      line-height: 1.6;
+    }
+
+    /* ── DIFERENCIAL AI FIRST ── */
+    .aifirst-section {
+      margin-bottom: 48px;
+    }
+
+    .aifirst-card {
+      background: linear-gradient(135deg, var(--db1-dark) 0%, var(--db1-blue) 100%);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .aifirst-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: rgba(0,200,255,0.07);
+    }
+
+    .aifirst-card h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .aifirst-card .quote {
+      font-size: 15px;
+      color: var(--db1-accent);
+      font-style: italic;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .aifirst-pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      position: relative;
+    }
+
+    .pillar {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+    }
+
+    .pillar-icon { font-size: 22px; margin-bottom: 8px; }
+    .pillar h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .pillar p { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+    /* ── METRICS ── */
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--db1-gray-mid);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+
+    .metric-item {
+      background: white;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--db1-blue);
+      letter-spacing: -1px;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--db1-muted);
+      margin-top: 4px;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: white;
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: 0 4px 24px rgba(0,51,160,0.08);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .cta-text h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--db1-dark);
+      margin-bottom: 8px;
+    }
+
+    .cta-text p {
+      font-size: 14px;
+      color: var(--db1-muted);
+      line-height: 1.65;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 200px;
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      padding: 13px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.18s;
+    }
+
+    .btn-primary {
+      background: var(--db1-blue);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--db1-blue-light); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--db1-blue);
+      border: 2px solid var(--db1-blue);
+    }
+
+    .btn-outline:hover { background: var(--db1-gray); }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--db1-dark);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 28px 40px;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .footer strong { color: rgba(255,255,255,0.7); }
+
+    /* ── CONFIDENTIAL BAR ── */
+    .confidential-bar {
+      background: var(--db1-blue);
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      padding: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .header-inner { padding: 36px 20px 32px; }
+      .main { padding: 32px 20px 60px; }
+      .header h1 { font-size: 24px; }
+      .cta-section { grid-template-columns: 1fr; }
+      .metrics-bar { grid-template-columns: 1fr; }
+      .cta-actions { flex-direction: row; }
+    }
+
+    @media print {
+      body { background: white; }
+      .header { background: var(--db1-blue) !important; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="confidential-bar">⚑ Documento Confidencial — Uso Exclusivo Uniprime &amp; DB1 Global Software</div>
+
+<!-- ══════════ LOGO BAR ══════════ -->
+<div class="logo-bar">
+  <div class="logo-bar-inner">
+
+    <!-- Uniprime Logo — carregada diretamente do site oficial -->
+    <div class="logo-uniprime-wrap">
+      <img
+        src="https://www.uniprime.com.br/themes/oficial/images/logo-uniprime.png"
+        alt="Uniprime Cooperativa de Crédito"
+        style="height:56px; width:auto; display:block;"
+        onerror="this.onerror=null; this.src='https://www.uniprime.com.br/uploads/slides/2024/01/tag-uniprime.png';"
+      />
+    </div>
+
+    <!-- DB1 Logo — carregada diretamente do site oficial -->
+    <div class="logo-db1-wrap">
+      <img
+        src="https://www.db1.com.br/wp-content/uploads/2026/03/logo_dgs.svg"
+        alt="DB1 Global Software"
+        style="height:40px; width:auto; display:block;"
+        onerror="this.onerror=null; this.src='https://www.db1.com.br/wp-content/uploads/2026/03/marca-db1.png';"
+      />
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-tag">Proposta Técnica-Comercial</div>
+    <h1>Discovery &amp; Evolução de<br/><span>Plataforma Financeira</span></h1>
+    <p class="header-sub">Iniciativa estruturada para fortalecer a plataforma digital da Uniprime — cobrindo segurança, conformidade regulatória Pix, crédito consignado e controle antifraude, com squads especializados e metodologia AI-First.</p>
+
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-label">Destinatário</span>
+        <span class="meta-value">Uniprime do Brasil</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Elaborado por</span>
+        <span class="meta-value">DB1 Global Software</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Data</span>
+        <span class="meta-value">Maio de 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Versão</span>
+        <span class="meta-value">1.0 — Inicial</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ MAIN ══════════ -->
+<main class="main">
+
+  <!-- Intro -->
+  <div class="intro-card">
+    <p>A DB1 Global Software, parceira de longa data da Uniprime, apresenta esta proposta para apoiar a evolução contínua da plataforma financeira cooperativa. Os quatro itens abaixo foram priorizados pela própria equipe técnica da Uniprime e refletem necessidades reais de negócio — segurança, conformidade, inovação e controle operacional.</p>
+    <p>Nossa abordagem é AI-First: cada profissional alocado trabalha com ferramentas e agentes de IA proprietários da DB1 para maximizar produtividade, assertividade e rastreabilidade de cada entrega.</p>
+  </div>
+
+  <!-- Métricas DB1 -->
+  <div class="metrics-bar">
+    <div class="metric-item">
+      <div class="metric-value">99,3%</div>
+      <div class="metric-label">Acuracidade de código</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-value">92,7%</div>
+      <div class="metric-label">Entregas no prazo</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-value">NPS 89</div>
+      <div class="metric-label">Satisfação dos clientes</div>
+    </div>
+  </div>
+
+  <!-- ── ESCOPO ── -->
+  <div class="section-title">Escopo de Trabalho</div>
+  <div class="section-heading">Itens Priorizados pela Uniprime</div>
+  <p class="section-desc">Os quatro itens abaixo estão ordenados conforme priorização do cliente. Cada um tem escopo, riscos e profissional responsável mapeados.</p>
+
+  <div class="scope-grid">
+
+    <!-- Item 1 -->
+    <div class="scope-card p1">
+      <div class="scope-number">1</div>
+      <div class="scope-content">
+        <div class="priority-badge">🔴 Prioridade Crítica</div>
+        <div class="scope-subtitle">Segurança &amp; Arquitetura</div>
+        <h3>Desidratação Servcore — Hardening &amp; Escopo Auditável</h3>
+        <p>Finalizar a migração das funcionalidades do Servcore para o backend Uniprime, com levantamento e documentação das regras de negócio exclusivas do Servcore. O discovery técnico precisa avaliar o impacto no Backoffice (gestão de usuários e perfis), identificar brechas de segurança acumuladas pelo tempo sem evolução, e ampliar o escopo de auditabilidade das transações. Este item é pré-requisito parcial para o item 4 (motor antifraude OFD).</p>
+        <div class="scope-tags">
+          <span class="tag danger">Segurança Crítica</span>
+          <span class="tag warn">Brechas Potenciais</span>
+          <span class="tag">Regras de Negócio</span>
+          <span class="tag">Backoffice</span>
+          <span class="tag info">Pré-requisito OFD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="scope-card p2">
+      <div class="scope-number">2</div>
+      <div class="scope-content">
+        <div class="priority-badge">🟡 Alta Prioridade</div>
+        <div class="scope-subtitle">Regulatório Pix</div>
+        <h3>Limites Pix — Discovery de Jornadas &amp; Nova Transação</h3>
+        <p>Implementação da nova transação de Limites Pix, com dependência parcial na desidratação do Servcore (especialmente na gestão de limites atualmente controlada pelo orquestrador). O analista de requisitos realizará o discovery completo das jornadas possíveis dentro do regramento Pix vigente, mapeando todos os fluxos de usuário, exceções e regras do BACEN aplicáveis antes de qualquer implementação.</p>
+        <div class="scope-tags">
+          <span class="tag warn">Depende parcialmente do item 1</span>
+          <span class="tag info">Discovery BA</span>
+          <span class="tag">Regramento BACEN</span>
+          <span class="tag">Novas Jornadas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="scope-card p3">
+      <div class="scope-number">3</div>
+      <div class="scope-content">
+        <div class="priority-badge">🔵 Alta Prioridade</div>
+        <div class="scope-subtitle">Crédito &amp; Conformidade</div>
+        <h3>Crédito do Trabalhador — Reconhecimento Facial &amp; Dataprev</h3>
+        <p>Contratação e comprovação de assinatura de contratos utilizando reconhecimento facial (exigência regulatória). O trabalho envolve: avaliação e homologação de provedores (Facephi, Facetec, Unico, idWall, Serpro), análise de aderência da implementação atual aos requisitos do Dataprev, e posterior embarque da solução no app mobile e Internet Banking. O analista verificará os gaps entre o que já foi implementado e o que a regulação exige.</p>
+        <div class="scope-tags">
+          <span class="tag">Reconhecimento Facial</span>
+          <span class="tag info">Dataprev</span>
+          <span class="tag">App + IB</span>
+          <span class="tag green">Avaliação de Fornecedores</span>
+          <span class="tag">Facephi / Unico / idWall</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="scope-card p4">
+      <div class="scope-number">4</div>
+      <div class="scope-content">
+        <div class="priority-badge">🟢 Prioridade Relevante</div>
+        <div class="scope-subtitle">Antifraude</div>
+        <h3>OFD — Motor de Antifraude de Transações</h3>
+        <p>Reavaliação completa da documentação do fornecedor Topaz para o motor de antifraude OFD. O analista estabelecerá critérios objetivos de rejeição automática versus envio para mesa de avaliação (a ser construída). A mesa de avaliação é um produto novo a ser desenhado nesta fase, integrando-se ao fluxo de aprovação de transações suspeitas. O item se beneficia do escopo auditável ampliado do item 1.</p>
+        <div class="scope-tags">
+          <span class="tag green">Topaz OFD</span>
+          <span class="tag">Mesa de Avaliação</span>
+          <span class="tag info">Critérios de Rejeição</span>
+          <span class="tag">Reserva de Transação</span>
+          <span class="tag warn">Vinculado ao item 1</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── EQUIPE ── -->
+  <div class="team-section">
+    <div class="section-title">Time Alocado</div>
+    <div class="section-heading">Profissionais Propostos</div>
+    <p class="section-desc">Equipe enxuta, especializada e orientada a entrega — cada perfil alinhado às necessidades específicas dos itens.</p>
+
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="team-role">Discovery &amp; Requisitos — Etapa 2</div>
+        <div class="team-name">Business Analyst</div>
+        <div class="team-period">⏱ 2 meses • 320h previstas • Alocação 100%</div>
+        <ul class="team-scope-items">
+          <li>Discovery de jornadas Pix (item 2)</li>
+          <li>Análise de aderência Dataprev (item 3)</li>
+          <li>Avaliação de provedores faciais (item 3)</li>
+          <li>Critérios antifraude &amp; mesa OFD (item 4)</li>
+          <li>Documentação de requisitos e histórias</li>
+        </ul>
+        <div class="team-alloc">
+          Cobertura: itens 2, 3 e 4
+          <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:100%"></div></div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-role">Discovery Técnico — Etapa 1</div>
+        <div class="team-name">Tech Lead Sênior</div>
+        <div class="team-period">⏱ 1 mês • 160h previstas • Alocação 100%</div>
+        <ul class="team-scope-items">
+          <li>Mapeamento de regras no Servcore</li>
+          <li>Avaliação de brechas de segurança</li>
+          <li>Impacto no Backoffice de usuários</li>
+          <li>Plano de hardening e auditabilidade</li>
+          <li>Arquitetura de migração incremental</li>
+        </ul>
+        <div class="team-alloc">
+          Cobertura: item 1 (Servcore)
+          <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:100%"></div></div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-role">Gestão &amp; Governança</div>
+        <div class="team-name">Delivery Manager</div>
+        <div class="team-period">⏱ 2 meses • ~144h previstas • Alocação 30%</div>
+        <ul class="team-scope-items">
+          <li>Coordenação dos três profissionais</li>
+          <li>Alinhamento com stakeholders Uniprime</li>
+          <li>Gestão de riscos e impedimentos</li>
+          <li>Reporting e transparência de progresso</li>
+          <li>Garantia de qualidade das entregas</li>
+        </ul>
+        <div class="team-alloc">
+          Cobertura: todos os itens — 30%
+          <div class="alloc-bar-wrap"><div class="alloc-bar" style="width:30%"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── CRONOGRAMA ── -->
+  <div class="timeline-section">
+    <div class="section-title">Cronograma Estimado</div>
+    <div class="section-heading">Duas Etapas Paralelas — Fase de Discovery</div>
+    <p class="section-desc">O Tech Lead inicia o discovery técnico do Servcore (Etapa 1) simultaneamente ao Business Analyst, que conduz o discovery dos itens 2, 3 e 4 ao longo de 2 meses (Etapa 2). As etapas correm em paralelo, com o DM garantindo a coordenação.</p>
+
+    <table class="timeline-table">
+      <thead>
+        <tr>
+          <th>Atividade</th>
+          <th>Responsável</th>
+          <th>Mês 1 — Sem. 1–2</th>
+          <th>Mês 1 — Sem. 3–4</th>
+          <th>Mês 2 — Sem. 5–6</th>
+          <th>Mês 2 — Sem. 7–8</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#FFF8F8;">
+          <td><strong>ETAPA 1</strong> — Servcore (Tech Lead)</td>
+          <td>Tech Lead</td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Mapeamento</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block accent">✓ Entrega</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block light">—</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block light">—</div></div></td>
+        </tr>
+        <tr style="background:#F8F9FF;">
+          <td><strong>ETAPA 2</strong> — Limites Pix (BA)</td>
+          <td>BA</td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Jornadas</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Requisitos</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block light">—</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block light">—</div></div></td>
+        </tr>
+        <tr style="background:#F8F9FF;">
+          <td><strong>ETAPA 2</strong> — Crédito do Trabalhador (BA)</td>
+          <td>BA</td>
+          <td><div class="gantt-cell"><div class="gantt-block light">—</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Dataprev</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Facial</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block light">—</div></div></td>
+        </tr>
+        <tr style="background:#F8F9FF;">
+          <td><strong>ETAPA 2</strong> — Antifraude OFD (BA)</td>
+          <td>BA</td>
+          <td><div class="gantt-cell"><div class="gantt-block light">—</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Topaz Docs</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Critérios</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block accent">✓ Entrega</div></div></td>
+        </tr>
+        <tr>
+          <td>Gestão, Alinhamento &amp; Reporting</td>
+          <td>DM (30%)</td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Contínuo</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Contínuo</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Contínuo</div></div></td>
+          <td><div class="gantt-cell"><div class="gantt-block active">Contínuo</div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── ENTREGÁVEIS ── -->
+  <div class="deliverables-section">
+    <div class="section-title">Entregáveis</div>
+    <div class="section-heading">O que a Uniprime Receberá ao Final do Discovery</div>
+    <p class="section-desc">A entrega central desta fase é uma <strong>Proposta de Execução do Projeto com Squad Dedicada</strong>, fundamentada nos artefatos de discovery de cada frente e formulada com metodologia AI-First.</p>
+
+    <div class="deliverables-grid">
+      <div class="deliverable-card">
+        <div class="deliverable-icon">🗺️</div>
+        <h4>Mapa de Regras Servcore</h4>
+        <p>Documentação das regras de negócio exclusivas, impactos no Backoffice e plano de migração incremental.</p>
+      </div>
+      <div class="deliverable-card">
+        <div class="deliverable-icon">🔒</div>
+        <h4>Relatório de Hardening</h4>
+        <p>Brechas de segurança identificadas, vulnerabilidades e plano de remediação com escopo auditável ampliado.</p>
+      </div>
+      <div class="deliverable-card">
+        <div class="deliverable-icon">📋</div>
+        <h4>Requisitos &amp; Jornadas Pix</h4>
+        <p>Histórias de usuário, critérios de aceite e fluxos da nova transação de Limites Pix conforme BACEN.</p>
+      </div>
+      <div class="deliverable-card">
+        <div class="deliverable-icon">🤳</div>
+        <h4>Parecer Facial + Dataprev</h4>
+        <p>Análise comparativa de provedores (Facephi, Unico, idWall, Facetec, Serpro) e gap analysis vs. Dataprev.</p>
+      </div>
+      <div class="deliverable-card">
+        <div class="deliverable-icon">🛡️</div>
+        <h4>Playbook Antifraude OFD</h4>
+        <p>Critérios de rejeição automática, regras de reserva e desenho funcional da mesa de avaliação.</p>
+      </div>
+      <div class="deliverable-card" style="border: 2px solid var(--db1-blue); background: linear-gradient(135deg, #EEF3FF, #F8FBFF);">
+        <div class="deliverable-icon">🚀</div>
+        <h4 style="color: var(--db1-blue);">Proposta de Execução com Squad AI-First</h4>
+        <p>Consolidação de todos os artefatos em uma proposta de Squad dedicada com escopo, cronograma, composição de time e investimento para a fase de execução.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── INVESTIMENTO ── -->
+  <div class="pricing-section">
+    <div class="section-title">Investimento</div>
+    <div class="section-heading">Composição de Custo — Fase de Discovery</div>
+    <p class="section-desc">Investimento fixo para a fase de discovery. Os custos da fase de execução (Squad dedicada) serão apresentados na proposta gerada ao final desta etapa.</p>
+
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3>Resumo Financeiro — Discovery</h3>
+        <p>Fase 1: mapeamento, requisitos e proposta de execução AI-First para os 4 itens</p>
+      </div>
+      <div class="pricing-body">
+        <table class="pricing-rows">
+          <tr>
+            <td>Tech Lead Sênior — Etapa 1 — 1 mês (100%)</td>
+            <td>160h</td>
+            <td>Incluso</td>
+          </tr>
+          <tr>
+            <td>Business Analyst Sênior — Etapa 2 — 2 meses (100%)</td>
+            <td>320h</td>
+            <td>Incluso</td>
+          </tr>
+          <tr>
+            <td>Delivery Manager — 2 meses (30%)</td>
+            <td>~144h</td>
+            <td>Incluso</td>
+          </tr>
+          <tr class="pricing-total-row">
+            <td>Investimento Total — Fase de Discovery</td>
+            <td>~624h</td>
+            <td>R$ 146.000,00</td>
+          </tr>
+        </table>
+        <div class="pricing-note">
+          📌 <strong>Entrega incluída no investimento:</strong> Proposta de Execução completa com Squad AI-First, cronograma, composição de time e investimento para a fase de implementação dos 4 itens. A DB1 pratica modelo de precificação transparente — sem surpresas e sem escopo oculto.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── AI FIRST ── -->
+  <div class="aifirst-section">
+    <div class="section-title">Nosso Diferencial</div>
+    <div class="section-heading">Metodologia AI-First</div>
+
+    <div class="aifirst-card">
+      <h3>IA no DNA do Processo — Não como Copiloto, como Arquitetura</h3>
+      <p class="quote">"Você confia em código gerado por IA? Nós confiamos — usamos IA para acelerar e a engenharia para garantir os resultados."</p>
+
+      <div class="aifirst-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">🤖</div>
+          <h4>Agentes Especializados</h4>
+          <p>BA Agent, Code Analyzer, Health Analyzer e QA Agent participam ativamente de cada etapa.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🏛️</div>
+          <h4>Governança Forte</h4>
+          <p>Todo output de IA passa por validação humana, code review e cadeia de aprovação.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">📐</div>
+          <h4>Padrões Documentados</h4>
+          <p>Skills e specs que guiam os agentes, reduzindo alucinações e aumentando assertividade.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">📈</div>
+          <h4>Métricas Contínuas</h4>
+          <p>Qualidade medida em tempo real — detectamos degradação antes que vire problema.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🔐</div>
+          <h4>SAST &amp; DAST</h4>
+          <p>Análise estática e dinâmica de segurança em cada entrega, automatizada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="cta-section">
+    <div class="cta-text">
+      <h3>Aprovação da Proposta</h3>
+      <p>Ao clicar em <strong>"Aprovar Proposta"</strong>, você confirma a aprovação do discovery técnico estruturado para os 4 itens priorizados, com início imediato da mobilização do time DB1. Após o envio, nossa equipe entrará em contato em até 1 dia útil para alinhamento das datas de início.</p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn btn-primary" style="font-size:15px; padding: 16px 28px; background: linear-gradient(135deg, #0033A0, #0050D8);"
+        href="mailto:fernando.nicolodi@db1.com.br?subject=Aprovação%20da%20Proposta%20de%20Discovery%20Técnico%20—%20Uniprime%20%2F%20DB1%20Global%20Software&body=Olá%20Fernando%2C%0A%0AVenho%20por%20meio%20deste%20e-mail%20confirmar%20a%20APROVAÇÃO%20da%20Proposta%20Técnica-Comercial%20de%20Discovery%20apresentada%20pela%20DB1%20Global%20Software%20para%20a%20Uniprime.%0A%0AA%20proposta%20aprovada%20contempla%20o%20discovery%20técnico%20estruturado%20para%20os%20seguintes%20itens%20priorizados%3A%0A%0A1.%20Desidratação%20Servcore%20—%20Hardening%20e%20escopo%20auditável%20(Tech%20Lead%20Sênior%20%7C%201%20mês%20%7C%20160h)%0A2.%20Limites%20Pix%20—%20Discovery%20de%20jornadas%20e%20nova%20transação%20(Business%20Analyst%20%7C%20mês%201)%0A3.%20Crédito%20do%20Trabalhador%20—%20Reconhecimento%20facial%20e%20conformidade%20Dataprev%20(Business%20Analyst%20%7C%20meses%201-2)%0A4.%20OFD%20—%20Motor%20de%20antifraude%20e%20mesa%20de%20avaliação%20(Business%20Analyst%20%7C%20meses%201-2)%0A%0AComposição%20do%20time%3A%0A%E2%80%A2%20Tech%20Lead%20Sênior%3A%20Etapa%201%20%7C%201%20mês%20%7C%20160h%0A%E2%80%A2%20Business%20Analyst%20Sênior%3A%20Etapa%202%20%7C%202%20meses%20%7C%20320h%0A%E2%80%A2%20Delivery%20Manager%3A%20Alocação%2030%25%20%7C%20~144h%0A%0AInvestimento%20total%20aprovado%3A%20R%24%20146.000%2C00%0A%0AAguardo%20o%20contato%20da%20equipe%20DB1%20para%20alinhamento%20das%20próximas%20etapas%20e%20data%20de%20início.%0A%0AAtenciosamente%2C">✔ Aprovar Proposta</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <strong>DB1 Global Software</strong> — Grupo DB1 · www.db1.com.br<br/>
+  Maringá, PR · +26 anos de mercado · +850 colaboradores · NPS 89<br/>
+  <br/>
+  Contato: <strong>Fernando Nicolodi</strong><br/>
+  ✉ <a href="mailto:fernando.nicolodi@db1.com.br" style="color:rgba(255,255,255,0.6); text-decoration:none;">fernando.nicolodi@db1.com.br</a>
+  &nbsp;·&nbsp;
+  <a href="https://wa.me/5544991480606?text=Olá%20Fernando%2C%20tenho%20interesse%20na%20proposta%20técnica%20da%20DB1%20para%20a%20Uniprime." target="_blank" rel="noopener" style="color:#25D366; font-weight:700; text-decoration:none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#25D366" style="vertical-align:middle; margin-right:3px; margin-bottom:1px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>WhatsApp (44) 99148-0606
+  </a><br/>
+  <br/>
+  Este documento é confidencial e destinado exclusivamente à Uniprime e à DB1 Global Software.
+</footer>
+
+</body>
+</html>
